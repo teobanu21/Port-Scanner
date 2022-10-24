@@ -23,8 +23,7 @@ implementare interfata grafica sau direct din consola?
 * se prezinta mai multe optiuni
   *	full scan (toate porturile udp/tcp);
   *	check for specific port (da portul udp/tcp);
-  *	check for most common ports (80,22,21,23,8008,8080,etc);
-<br/> 
+  *	check for most common ports (80,22,21,23,8008,8080,etc);<br/> 
 * aplicatia stie sa spuna ce servicii ruleaza pe acele porturi;
 * aplicatia stie sa spuna daca tinta foloseste firewall;
 * aplicatia stie sa faca quite mode scanning;	
