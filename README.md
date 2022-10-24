@@ -1,6 +1,6 @@
 # Proiect PSO -> implementare aplicatie de tip port-scanner 
-Echipa Banu Teodora & Prelipcean Marius<br/> 
-C113D
+Echipa: Banu Teodora & Prelipcean Marius<br/> 
+Grupa: C113D
 
 ## Introducere
 Port scanning-ul reprezinta metoda prin care se poate determina ce porturi sunt deschise intr-o retea.
