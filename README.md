@@ -2,11 +2,8 @@
 Proiect PSO -> implementare aplicatie de tip port-scanner 
 
 Vom utiliza SFML
-interfata grafica
--
--
--
--
+
+implementare interfata grafica sau direct din consola? 
 
 functionalitatea propriu-zisa:
 -prima data se face ping catre un device pentru a testa daca exista sau nu in retea
