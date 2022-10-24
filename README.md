@@ -4,8 +4,7 @@
 ### Introducere
 Port scanning-ul reprezinta metoda prin care se poate determina ce porturi sunt deschise intr-o retea.
 Porturile reprezinta puncte de legatura virtuale intre device-uri. Ele au rolul de a multiplexa o conexiune, adica mai multe schimburi de date pot avea loc simultan.
-Treaba sta cam asa: ![Port_multiplexing](https://www.google.com/search?q=ports+multiplexing&rlz=1C1BNSD_enRO973RO973&sxsrf=ALiCzsZmhWJyrAh-nzsmkgx5QL6KC907YA:1666636303310&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjm9s-GwPn6AhV3iv0HHXnSALwQ_AUoAXoECAIQAw&biw=1920&bih=937&dpr=1#imgrc=NYv27lQwVkXAEM&imgdii=kSKKXyOqywPy1M)
-
+Treaba sta cam asa: ![Port_multiplexing](http://www.comefunziona.net/img/fig4.jpg)
 
 Vom utiliza [SFML](https://www.sfml-dev.org/documentation/2.5.1/group__network.php) pentru:
 * partea de networking
