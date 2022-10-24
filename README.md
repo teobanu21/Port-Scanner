@@ -1,7 +1,7 @@
 # Port-Scanner
-## Proiect PSO -> implementare aplicatie de tip port-scanner
+# Proiect PSO -> implementare aplicatie de tip port-scanner
 
-### Introducere
+## Introducere
 Port scanning-ul reprezinta metoda prin care se poate determina ce porturi sunt deschise intr-o retea.
 Porturile reprezinta puncte de legatura virtuale intre device-uri. Ele au rolul de a multiplexa o conexiune, adica mai multe schimburi de date pot avea loc simultan.
 Treaba sta cam asa: ![Port_multiplexing](http://www.comefunziona.net/img/fig4.jpg)
