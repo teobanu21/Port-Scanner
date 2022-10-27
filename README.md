@@ -58,4 +58,5 @@ int main() {
 * http://tangentsoft.net/wskfaq/examples/rawping.html
 * https://learn.microsoft.com/fr-fr/windows/win32/api/icmpapi/nf-icmpapi-icmpsendecho?redirectedfrom=MSDN
 * https://commschamp.github.io/comms_protocols_cpp/
+* https://www.sfml-dev.org/tutorials/2.5/network-http.php
 * ...
