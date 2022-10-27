@@ -21,6 +21,26 @@ implementare interfata grafica sau direct din consola?
 
 ## Functionalitati:
 * prima data se face ping catre un device pentru a testa daca exista sau nu in retea (Network scanning);
+```c++
+//Linux side
+//TO DO Win side
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int x = system("ping -c1 -s1 8.8.8.8  > /dev/null 2>&1");
+    
+    if (x == 0) {
+        cout << "success";
+    } 
+    else {
+        cout << "failed";
+    }
+
+    return 0;
+}
+```
 * daca ping-ul a reusit => device-ul exista si poate fi adresat;
 * se prezinta mai multe optiuni
   *	full scan (toate porturile udp/tcp);
@@ -30,3 +50,11 @@ implementare interfata grafica sau direct din consola?
 * aplicatia stie sa spuna daca tinta foloseste firewall;
 * aplicatia stie sa faca quite mode scanning;	
 * aplicatia stie ce tip de port este cel dat de user (stie daca portul dat este tcp sau udp, iar daca nu este hardcodat atunci invata);
+
+## Surse:
+* https://github.com/davidgatti/How-to-Understand-Sockets-Using-IoT
+* https://github.com/davidgatti/How-to-Deconstruct-Ping-with-C-and-NodeJS
+* http://www.codeproject.com/KB/IP/winping.aspx
+* http://tangentsoft.net/wskfaq/examples/rawping.html
+* https://learn.microsoft.com/fr-fr/windows/win32/api/icmpapi/nf-icmpapi-icmpsendecho?redirectedfrom=MSDN
+* 
