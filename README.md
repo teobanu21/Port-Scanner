@@ -23,7 +23,7 @@ implementare interfata grafica sau direct din consola?
 * prima data se face ping catre un device pentru a testa daca exista sau nu in retea (Network scanning);
 ```c++
 //Linux side
-//TO DO Win side
+//TODO Win side with icmpapi.h?
 #include <iostream>
 
 using namespace std;
@@ -57,4 +57,5 @@ int main() {
 * http://www.codeproject.com/KB/IP/winping.aspx
 * http://tangentsoft.net/wskfaq/examples/rawping.html
 * https://learn.microsoft.com/fr-fr/windows/win32/api/icmpapi/nf-icmpapi-icmpsendecho?redirectedfrom=MSDN
-* 
+* https://commschamp.github.io/comms_protocols_cpp/
+* ...
