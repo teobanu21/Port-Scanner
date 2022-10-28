@@ -21,6 +21,7 @@ implementare interfata grafica sau direct din consola?
 
 ## Functionalitati:
 * prima data se face ping catre un device pentru a testa daca exista sau nu in retea (Network scanning);
+* daca ping-ul a reusit => device-ul exista si poate fi adresat;
 ```c++
 //Linux side
 //TODO Win side with icmpapi.h?
@@ -41,7 +42,6 @@ int main() {
     return 0;
 }
 ```
-* daca ping-ul a reusit => device-ul exista si poate fi adresat;
 * se prezinta mai multe optiuni
   *	full scan (toate porturile udp/tcp);
   *	check for specific port (da portul udp/tcp);
