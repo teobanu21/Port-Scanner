@@ -17,10 +17,13 @@ Prima componenta a aplicatiei noastre va fi un **network scanner**. Rolul aceste
 In mare, **port scanner-ul se bazeaza pe trimiterea de requests catre porturile unui device din retea si interpretarea reaspunsurilor generate**. **In functie de tipul de serviciu** care ruleaza pe un anumit port si **constructia mesajului de request difera**. Daca acest fapt nu este luat in considerare, nu avem garantia ca raspunsul generat este reliable si poate fi interpretat gresit (de exemplu, daca formatul pentru un http request nu este respectat si este trimis catre portul 80, exista posibilitatea ca acesta sa nu raspunda request-ului nostru si poate fi interpretat fie drept port inchis, fie drept firewall in place). De aceea vom implementa un **["dictionar al porturilor"](https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers)** la nivelul aplicatiei noastre. Totusi, ne dorim sa implementam si o **componenta de invatare** in cadrul aplicatiei noastre, adica, atunci cand nu stie cum sa construiasca un request pentru un anume port, va folosi metoda **trial and error** si va invata **ce serviciu ruleaza pe acel port**.<br/> 
 
 ## Ce vom utiliza?
+Mediu de dezvoltare: 
+* Visual Studio 2022
+
 Vom utiliza [SFML](https://www.sfml-dev.org/index.php) pentru:
 * partea de [networking](https://www.sfml-dev.org/documentation/2.5.1/group__network.php)
 * partea de [GUI](https://www.sfml-dev.org/documentation/2.5.1/group__graphics.php)?
-implementare interfata grafica sau direct din consola? 
+implementare interfata grafica sau direct din consola?
 
 ## Functionalitati:
 * prima data se face ping catre un device pentru a testa daca exista sau nu in retea (Network scanning);
