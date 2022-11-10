@@ -54,5 +54,7 @@ Mediu de dezvoltare:
 Optiunea 
 * ```--ip``` in tcp_connect.c
 * ```--ports``` in tcp_all.c
-*
+* ```--ping``` in ping.c
 
+#### todo:
+Integrare intr-o singura sursa
