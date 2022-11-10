@@ -31,8 +31,12 @@ a caror detalii se regasesc mai jos:
 Prima componenta a aplicatiei noastre va fi un **network scanner**. Rolul acesteia este de a **verifica daca device-ul targetat de user se afla in retea sau nu**. Aceasta componenta se va construi in jurul protocolului **[ICMP](http://www.ping127001.com/pingpage.htm)**.<br/>
 Pentru aceasta vom avea nevoie de: 
 * structura predefinita [**structicmphdr**](https://docs.huihoo.com/doxygen/linux/kernel/3.7/structicmphdr.html)
-* 
-####Port scanner
+```c++
+#include <icmp.h>
+```
+
+
+#### Port scanner
 
 
 ## Ce vom utiliza?
