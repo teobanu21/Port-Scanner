@@ -10,11 +10,30 @@ Putem spune ca ele au fost create pentru a asigura trafic preferential diferitor
 Din schema de mai sus putem intelege ca serviciile, in functie de task-ul pe care trebuie sa-l indeplineasca, sunt dependente de un anumit tip de protocol pentru asigurarea conexiunii (TCP folosit, de exemplu, pentru o aplicatie de email si UDP folosit pentru o aplicatie de live streaming). Pe baza acestui fapt putem imparti porturile in [doua categorii](https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers).
 
 ## Cum va functiona aplicatia noastra?
+Aplicatia va rula pe masinilie cu OS Linux. Aceasta va fi porni cu comanda:
+```bash
+./portScanner [option1, ..., optionN]
+```
+De asemenea planuim sa implementam urmatoarele optiuni:
+```bash
+--help <display invocation options>
+--ports <ports to scan>
+--ip <IP address to scan>
+--file <file name containing IP addresses to scan>
+--transport <TCP or UDP>
+```
+a caror detalii se regasesc mai jos:
+* **help**: afiseaza optiunile disponibile user-ului
+* **ports**: by default, port scanner-ul va scana porturile [0-1024], dar prin intermediul acestei comenzi va scana doar porturile specificate in command line
+* **ip**/**file**: aceste optiuni dau posibilitatea user-ului sa scaneze un IP anume sau o lista de IP-uri dintr-un fisier
+* **transport**: by default, aplicatia va scana toate porturile TCP si UDP, insa ofera optiunea user-ului sa scaneze fie porturile TCP fie cele UDP
 #### Network scanner
 Prima componenta a aplicatiei noastre va fi un **network scanner**. Rolul acesteia este de a **verifica daca device-ul targetat de user se afla in retea sau nu**. Aceasta componenta se va construi in jurul protocolului **[ICMP](http://www.ping127001.com/pingpage.htm)**.<br/>
-<br/>
-#### Port scanner
-In mare, **port scanner-ul se bazeaza pe trimiterea de requests catre porturile unui device din retea si interpretarea reaspunsurilor generate**. **In functie de tipul de serviciu** care ruleaza pe un anumit port si **constructia mesajului de request difera**. Daca acest fapt nu este luat in considerare, nu avem garantia ca raspunsul generat este reliable si poate fi interpretat gresit (de exemplu, daca formatul pentru un http request nu este respectat si este trimis catre portul 80, exista posibilitatea ca acesta sa nu raspunda request-ului nostru si poate fi interpretat fie drept port inchis, fie drept firewall in place). De aceea vom implementa un **["dictionar al porturilor"](https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers)** la nivelul aplicatiei noastre. Totusi, ne dorim sa implementam si o **componenta de invatare** in cadrul aplicatiei noastre, adica, atunci cand nu stie cum sa construiasca un request pentru un anume port, va folosi metoda **trial and error** si va invata **ce serviciu ruleaza pe acel port**.<br/> 
+Pentru aceasta vom avea nevoie de: 
+* structura predefinita [**structicmphdr**](https://docs.huihoo.com/doxygen/linux/kernel/3.7/structicmphdr.html)
+* 
+####Port scanner
+
 
 ## Ce vom utiliza?
 Mediu de dezvoltare: 
