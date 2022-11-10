@@ -21,6 +21,7 @@ De asemenea planuim sa implementam urmatoarele optiuni:
 --ip <IP address to scan>
 --file <file name containing IP addresses to scan>
 --transport <TCP or UDP>
+--ping <optiunea de a verfica daca host is alive before scanning>
 ```
 a caror detalii se regasesc mai jos:
 * **help**: afiseaza optiunile disponibile user-ului
@@ -48,58 +49,8 @@ Mediu de dezvoltare:
 
 ## Progres
 #### 11/11/2022
-1. Optiunea ```--ip``` 
-* tcp_connect.c
+Optiunea 
+* ```--ip``` in tcp_connect.c
+* ```--ports``` in tcp_all.c
+*
 
-```c++
-#include <stdio.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include "netdb.h"
-
-int main()
-{
-
-    int portno = 53;
-    struct in_addr address;
-
-    int sockfd;
-    struct sockaddr_in serv_addr;
-    struct hostent *server;
-
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd < 0)
-    {
-        error("ERROR opening socket");
-    }
-    
-    //dns
-    inet_aton("8.8.8.8", &address);
-    server = gethostbyaddr(&address, sizeof(address), AF_INET); 
-
-    if (server == NULL)
-    {
-        fprintf(stderr, "ERROR, no such host\n");
-        exit(0);
-    }
-
-
-    bzero((char *)&serv_addr, sizeof(serv_addr));
-    serv_addr.sin_family = AF_INET;
-    bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
-
-    serv_addr.sin_port = htons(portno);
-    if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
-    {
-        printf("Port is closed");
-    }
-    else
-    {
-        printf("Port is active");
-    }
-
-    close(sockfd);
-    return 0;
-}
-```
