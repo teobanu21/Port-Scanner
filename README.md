@@ -37,6 +37,7 @@ Pentru aceasta vom avea nevoie de:
 
 
 #### Port scanner
+todo...
 
 
 ## Ce vom utiliza?
@@ -47,7 +48,7 @@ Mediu de dezvoltare:
 
 ## Progres
 #### 11/11/2022
-Optiunea --ip in tcp_connect.c
+Optiunea ```--ip in tcp_connect.c```
 ```c++
 #include <stdio.h>
 #include <string.h>
