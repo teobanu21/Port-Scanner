@@ -40,53 +40,63 @@ Pentru aceasta vom avea nevoie de:
 
 
 ## Ce vom utiliza?
-Mediu de dezvoltare: 
-* Visual Studio 2022
+Mediu de dezvoltare:
+* Ubuntu vm
+* Visual Studio Code
 
-Vom utiliza [SFML](https://www.sfml-dev.org/index.php) pentru:
-* partea de [networking](https://www.sfml-dev.org/documentation/2.5.1/group__network.php)
-* partea de [GUI](https://www.sfml-dev.org/documentation/2.5.1/group__graphics.php)?
-implementare interfata grafica sau direct din consola?
 
-## Functionalitati:
-* prima data se face ping catre un device pentru a testa daca exista sau nu in retea (Network scanning);
-* daca ping-ul a reusit => device-ul exista si poate fi adresat;
+## Progres
+#### 11/11/2022
+Optiunea --ip in tcp_connect.c
 ```c++
-//Linux side
-//TODO Win side with icmpapi.h?
-#include <iostream>
+#include <stdio.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include "netdb.h"
 
-using namespace std;
+int main()
+{
 
-int main() {
-    int x = system("ping -c1 -s1 8.8.8.8  > /dev/null 2>&1");
+    int portno = 53;
+    struct in_addr address;
+
+    int sockfd;
+    struct sockaddr_in serv_addr;
+    struct hostent *server;
+
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd < 0)
+    {
+        error("ERROR opening socket");
+    }
     
-    if (x == 0) {
-        cout << "success";
-    } 
-    else {
-        cout << "failed";
+    //dns
+    inet_aton("8.8.8.8", &address);
+    server = gethostbyaddr(&address, sizeof(address), AF_INET); 
+
+    if (server == NULL)
+    {
+        fprintf(stderr, "ERROR, no such host\n");
+        exit(0);
     }
 
+
+    bzero((char *)&serv_addr, sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
+
+    serv_addr.sin_port = htons(portno);
+    if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
+    {
+        printf("Port is closed");
+    }
+    else
+    {
+        printf("Port is active");
+    }
+
+    close(sockfd);
     return 0;
 }
 ```
-* se prezinta mai multe optiuni
-  *	full scan (toate porturile udp/tcp);
-  *	check for specific port (da portul udp/tcp);
-  *	check for most common ports (80,22,21,23,8008,8080,etc);<br/> 
-* aplicatia stie sa spuna ce servicii ruleaza pe acele porturi;
-* aplicatia stie sa spuna daca tinta foloseste firewall;
-* aplicatia stie sa faca quite mode scanning;	
-* aplicatia stie ce tip de port este cel dat de user (stie daca portul dat este tcp sau udp, iar daca nu este hardcodat atunci invata);
-
-## Surse:
-* https://github.com/davidgatti/How-to-Understand-Sockets-Using-IoT
-* https://github.com/davidgatti/How-to-Deconstruct-Ping-with-C-and-NodeJS
-* http://www.codeproject.com/KB/IP/winping.aspx
-* http://tangentsoft.net/wskfaq/examples/rawping.html
-* https://learn.microsoft.com/fr-fr/windows/win32/api/icmpapi/nf-icmpapi-icmpsendecho?redirectedfrom=MSDN
-* https://commschamp.github.io/comms_protocols_cpp/
-* https://www.sfml-dev.org/tutorials/2.5/network-http.php
-* ...
-* 
