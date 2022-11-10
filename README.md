@@ -48,7 +48,9 @@ Mediu de dezvoltare:
 
 ## Progres
 #### 11/11/2022
-Optiunea ```--ip in tcp_connect.c```
+1. Optiunea ```--ip``` 
+* tcp_connect.c
+
 ```c++
 #include <stdio.h>
 #include <string.h>
