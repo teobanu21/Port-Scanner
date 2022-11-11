@@ -51,7 +51,7 @@ Mediu de dezvoltare:
 
 ## Progres
 #### 11/11/2022
-Optiunea 
+Optiunile 
 * ```--ip``` in tcp_connect.c
 * ```--ports``` in tcp_all.c
 * ```--ping``` in ping.c
