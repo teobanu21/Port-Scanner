@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "so_stdio.h": "c",
+        "stat.h": "c",
+        "fcntl.h": "c",
+        "so_handle.h": "c"
+    }
+}

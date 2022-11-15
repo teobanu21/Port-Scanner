@@ -48,6 +48,25 @@ Mediu de dezvoltare:
 * Ubuntu vm
 * Visual Studio Code
 
+## Surse
+#### socket()
+* https://linux.die.net/man/3/socket
+
+#### struct sockaddr_in, struct in_addr
+* https://www.gta.ufrj.br/ensino/eel878/sockets/sockaddr_inman.html
+
+#### gethostbyaddr + netdb.h
+* https://www.ibm.com/docs/en/ztpf/1.1.0.15?topic=apis-gethostbyaddr-get-host-information-ip-address
+* http://www.qnx.com/developers/docs/qnxcar2/index.jsp?topic=%2Fcom.qnx.doc.neutrino.lib_ref%2Ftopic%2Fh%2Fhostent.html
+
+#### inet_aton()
+* https://www.ibm.com/docs/en/zos/2.5.0?topic=lf-inet-aton-convert-internet-address-format-from-text-binary
+
+#### arpa/inet.h
+* https://pubs.opengroup.org/onlinepubs/7908799/xns/arpainet.h.html
+
+
+
 
 ## Progres
 #### 11/11/2022

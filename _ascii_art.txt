@@ -1,0 +1,13 @@
+ ____            _   ____                                  
+|  _ \ ___  _ __| |_/ ___|  ___ __ _ _ __  _ __   ___ _ __ 
+| |_) / _ \| '__| __\___ \ / __/ _` | '_ \| '_ \ / _ \ '__|
+|  __/ (_) | |  | |_ ___) | (_| (_| | | | | | | |  __/ |   
+|_|   \___/|_|   \__|____/ \___\__,_|_| |_|_| |_|\___|_|   
+
+
+--help <display invocation options>
+--ports <ports to scan>
+--ip <IP address to scan>
+--file <file name containing IP addresses to scan>
+--transport <TCP or UDP>
+--ping <check if host is alive before scanning>
