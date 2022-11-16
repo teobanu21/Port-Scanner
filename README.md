@@ -71,9 +71,9 @@ Mediu de dezvoltare:
 ## Progres
 #### 11/11/2022
 Optiunile 
-* ```--ip``` in tcp_connect.c
-* ```--ports``` in tcp_all.c
-* ```--ping``` in ping.c
+* ```--ip``` 
+* ```--port``` -> done
+* ```--ping``` 
 
 #### todo:
 Integrare intr-o singura sursa

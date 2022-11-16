@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     }
     else if (strcmp(argv[1], "--port") == 0)
     {
-        printf("./main --ports %s %d\n", argv[3], atoi(argv[2]));
+        printf("./main --port %d %s\n", atoi(argv[2]), argv[3]);
         if (isValidIpAddress(argv[3]))
         {
             tcp_connect_rev_dns(argv[3], atoi(argv[2]));
