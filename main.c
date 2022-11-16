@@ -2,60 +2,35 @@
 #include <stdio.h>
 #include <string.h>
 #include "tools.h"
-#include "tcp_connect.h"
-
-void print_banner()
-{
-    // banner side
-    FILE *infile;
-    char *buffer;
-    long numbytes;
-
-    infile = fopen("_ascii_art.txt", "r");
-
-    if (infile == NULL)
-        return 1;
-
-    fseek(infile, 0L, SEEK_END);
-    numbytes = ftell(infile);
-
-    fseek(infile, 0L, SEEK_SET);
-    buffer = (char *)calloc(numbytes, sizeof(char));
-
-    if (buffer == NULL)
-        return 1;
-
-    fread(buffer, sizeof(char), numbytes, infile);
-    fclose(infile);
-
-    printf("%s", buffer);
-
-    free(buffer);
-
-    printf("\n");
-}
+#include "tcp_connect_rev_dns.h"
+#include "tcp_connect_dns.h"
 
 int main(int argc, char *argv[])
 {
-    
-
     // program side
-
     if (argc == 1)
     {
-        print_banner();
+        myprint("_ascii_art.txt");
         printf("\n\nPress any key to continue...");
         getchar();
-        system("gnome-terminal");
+        // system("gnome-terminal");
     }
-    else if (strcmp(argv[1], "--ports") == 0)
+    else if (strcmp(argv[1], "--port") == 0)
     {
-        printf("./main --ports %s %d\n",argv[2], atoi(argv[3]));
-        tcp_connect(argv[2], atoi(argv[3]));
+        printf("./main --ports %s %d\n", argv[3], atoi(argv[2]));
+        if (isValidIpAddress(argv[3]))
+        {
+            tcp_connect_rev_dns(argv[3], atoi(argv[2]));
+        }
+        else
+        {
+            tcp_connect_dns(argv[3], atoi(argv[2]));
+        }
     }
     else if (strcmp(argv[1], "--help") == 0)
     {
-        print_banner();
+        system("clear");
+        myprint("_man.txt");
     }
 
     return 0;

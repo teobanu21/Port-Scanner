@@ -1,11 +1,11 @@
+#pragma once
 #include "tools.h"
 
-void tcp_connect(const char* addr, int port_no){
+void tcp_connect_dns(const char* addr, int port_no){
     struct in_addr address;         // 
 
     int sockfd;                     // socket descriptor
     struct sockaddr_in serv_addr;   // structura care contine port + ip pt stabilirea conexiunii
-    
     struct hostent *server;
 
     sockfd = socket(AF_INET, SOCK_STREAM, 0);        //creare socket
@@ -20,18 +20,16 @@ void tcp_connect(const char* addr, int port_no){
     {
         printf("Socket failed\n");
     }
-    
-    //dns server
-    inet_aton(addr, &address);                                      //verificam portul 53 pe 8.8.8.8
-    server = gethostbyaddr(&address, sizeof(address), AF_INET);     //hostname of address 8.8.8.8
 
+    server = gethostbyname(addr);     
     if (server == NULL)
     {
         fprintf(stderr, "ERROR, no such host\n");
         exit(0);
     }
 
-     printf("%s\n", server->h_name);
+    char* ip = dns_lookup(addr, port_no);
+    printf("IP: %s\n", ip);
 
 //initializarea structurii cu ajutorul careia verificam conexiunea
     bzero((char *)&serv_addr, sizeof(serv_addr));
