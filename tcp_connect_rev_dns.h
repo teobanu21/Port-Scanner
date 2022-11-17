@@ -41,11 +41,11 @@ void tcp_connect_rev_dns(const char* addr, int port_no){
    
     if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
     {
-        printf("Port is closed\n");
+        printf("Port %d is closed\n", port_no);
     }
     else
     {
-        printf("Port is active\n");
+        printf("Port %d is active\n", port_no);
     }
 
     close(sockfd);
