@@ -17,31 +17,25 @@ Aplicatia va rula pe masinilie cu OS Linux.
 Mai multe detalii in ceea ce priveste utilizarea aplicatiei noastre mai jos:
 ```bash
 --help <display invocation options>
---ports <ports to scan>
---ip <IP address to scan>
+--port <port to scan>
 --file <file name containing IP addresses to scan>
 --transport <TCP or UDP>
 --ping <optiunea de a verfica daca host is alive before scanning>
 ```
-a caror detalii se regasesc mai jos:
 * **help**: afiseaza optiunile disponibile user-ului
 * **ports**: by default, port scanner-ul va scana porturile [0-1024], dar prin intermediul acestei comenzi va scana doar porturile specificate in command line
 * **ip**/**file**: aceste optiuni dau posibilitatea user-ului sa scaneze un IP anume sau o lista de IP-uri dintr-un fisier
 * **transport**: by default, aplicatia va scana toate porturile TCP si UDP, insa ofera optiunea user-ului sa scaneze fie porturile TCP fie cele UDP
 * **ping**: verifica daca host is alive
 
-#### Network scanner
-Prima componenta a aplicatiei noastre va fi un **network scanner**. Rolul acesteia este de a **verifica daca device-ul targetat de user se afla in retea sau nu**. Aceasta componenta se va construi in jurul protocolului **[ICMP](http://www.ping127001.com/pingpage.htm)**.<br/>
-Pentru aceasta vom avea nevoie de: 
-* structura predefinita [**structicmphdr**](https://docs.huihoo.com/doxygen/linux/kernel/3.7/structicmphdr.html)
-```c++
-#include <icmp.h>
+Pentru a regasi aceste indrumari si in terminal se va utiliza una dintre urmatoarele comenzi:
+```bash
+./nscan
 ```
-
-
-#### Port scanner
-todo...
-
+sau
+```bash
+./nscan --help
+```
 
 ## Ce vom utiliza?
 Mediu de dezvoltare:
