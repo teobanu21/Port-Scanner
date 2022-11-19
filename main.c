@@ -5,20 +5,24 @@
 #include "tcp_connect_rev_dns.h"
 #include "tcp_connect_dns.h"
 
+// todo:
+// check if command is wrong for argv[1]
+
 int main(int argc, char *argv[])
 {
     // program side
-    if (argc == 1)      //apel incorect al programului => mini descriere a modului in care trebuie apelat programul
+    if (argc == 1) // apel incorect al programului => mini descriere a modului in care trebuie apelat programul
     {
         myprint("_ascii_art.txt");
         printf("\n\nPress any key to continue...");
         getchar();
     }
-    else if (argc == 2)                 //2 variante -> --help sau scan all ports for given ip
-    {                                   //to do scan all ports for given domain name
+    else if (argc == 2) // 2 variante -> --help sau scan all ports for given ip
+    {                   // to do scan all ports for given domain name
         // to do tcp_all
-        if (isValidIpAddress(argv[1]))
+        if (isValidIpAddress(argv[1])) //fix this!!! works for invalid ip addresses like 32.3
         {
+            // initSock()
             struct in_addr address; //
             int sockfd;             // socket descriptor
             struct hostent *server;
@@ -31,9 +35,9 @@ int main(int argc, char *argv[])
                 exit(1);
             }
 
-            // reverse dns
-            inet_aton(argv[1], &address);                               // verificam portul 53 pe 8.8.8.8
-            server = gethostbyaddr(&address, sizeof(address), AF_INET); // hostname of address 8.8.8.8
+            // reverse dns func()
+            inet_aton(argv[1], &address);
+            server = gethostbyaddr(&address, sizeof(address), AF_INET);
 
             if (server == NULL)
             {
@@ -43,6 +47,7 @@ int main(int argc, char *argv[])
 
             printf("%s\n", server->h_name);
 
+            // this stays for now
             int tasksPerThread = (NUMPORTS + NUMTHREADS - 1) / NUMTHREADS;
 
             struct ThreadData data[NUMTHREADS];
@@ -76,6 +81,12 @@ int main(int argc, char *argv[])
             {
                 system("clear");
                 myprint("_man.txt");
+            }
+            else
+            {
+                //todo: check for wrong argument -> implement func() and text file with format: 
+                //Usage: pscan [Option/IP] {Port} {IP}...
+                //Try 'pscan --help' for more information.
             }
         }
     }

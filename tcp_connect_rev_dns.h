@@ -33,7 +33,7 @@ void tcp_connect_rev_dns(const char* addr, int port_no){
 
      printf("%s\n", server->h_name);
 
-//initializarea structurii cu ajutorul careia verificam conexiunea
+//initializarea structurii cu ajutorul careia verificam conexiunea -> todo: checkConnection func
     bzero((char *)&serv_addr, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
     bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);

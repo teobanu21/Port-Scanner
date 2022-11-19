@@ -19,19 +19,20 @@ void tcp_connect_dns(const char* addr, int port_no){
     if (sockfd < 0)
     {
         printf("Socket failed\n");
+        exit(1);
     }
 
     server = gethostbyname(addr);     
     if (server == NULL)
     {
         fprintf(stderr, "ERROR, no such host\n");
-        exit(0);
+        exit(1);
     }
 
     char* ip = dns_lookup(addr, port_no);
     printf("IP: %s\n", ip);
 
-//initializarea structurii cu ajutorul careia verificam conexiunea
+//initializarea structurii cu ajutorul careia verificam conexiunea -> todo: checkConnection func in tools.h
     bzero((char *)&serv_addr, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
     bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);

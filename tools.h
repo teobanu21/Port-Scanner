@@ -3,14 +3,15 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/socket.h> //pt sockets
+#include <sys/socket.h>     //pt sockets
 #include <arpa/inet.h>
-#include "netdb.h" //defines the hostent structure, aici folosit pentru DNS
+#include "netdb.h"          //defines the hostent structure, aici folosit pentru DNS
 #include "pthread.h"
 
 #define NUMTHREADS 5
 #define NUMPORTS 54
 
+//pt functia ./main [IP address] ->scaneaza toate porturile entitatii targetate
 struct ThreadData
 {
     int start, stop;
@@ -18,13 +19,19 @@ struct ThreadData
     int sockfd;
 };
 
+//initSock() todo...
+
+
+//verifica daca format-ul adresei IP este corect
 int isValidIpAddress(char *ipAddress)
 {
+    //also check for number of '.' to be sure they are 4, then run the following code lines
     struct sockaddr_in sa;
     int result = inet_pton(AF_INET, ipAddress, &(sa.sin_addr));
     return result != 0;
 }
 
+//printeaza fisiere dupa caz
 void myprint(const char *filename)
 {
     FILE *infile;
@@ -55,6 +62,10 @@ void myprint(const char *filename)
     printf("\n");
 }
 
+//todo: ip to domain_name func() more precisely a rev dns func 
+
+
+//domain name to ip func -> dns functionality
 char *dns_lookup(const char *addr_host, int PORT_NO)
 {
     struct hostent *host_entity;
@@ -73,7 +84,6 @@ char *dns_lookup(const char *addr_host, int PORT_NO)
 }
 
 // tcp multithread rev dns helper function
-
 void iterate_ports(struct ThreadData *td)
 {
 
