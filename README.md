@@ -63,11 +63,22 @@ Mediu de dezvoltare:
 
 
 ## Progres
-#### 11/11/2022
-Optiunile 
-* ```--ip``` 
-* ```--port``` -> done
-* ```--ping``` 
+#### 19/11/2022
+Optiuni functionale: 
+```bash
+./nscan
+```
+```bash
+./nscan --help
+```
+```bash
+./nscan 8.8.8.8 #or any other IP address
+```
+```bash
+./nscan --port 53 8.8.8.8 #or any other port or IP address
+```
+```bash
+./nscan --port 53 dns.google #or any other port or domain name
+```
 
 #### todo:
-Integrare intr-o singura sursa
