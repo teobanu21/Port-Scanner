@@ -17,10 +17,22 @@ int main(int argc, char *argv[])
         printf("\n\nPress any key to continue...");
         getchar();
     }
-    else if (argc == 2) // 2 variante -> --help sau scan all ports for given ip
-    {                   // to do scan all ports for given domain name
-        // to do tcp_all
-        if (isValidIpAddress(argv[1])) //fix this!!! works for invalid ip addresses like 32.3
+    else if (argc == 2) // doar pentru cazul cu --help
+    {
+        if (strcmp(argv[1], "--help") == 0)
+        {
+            system("clear");
+            myprint("_man.txt");
+        }
+        else
+        {
+            wrongCall();
+        }
+    }
+    else if (argc == 3) // to do scan all ports for given domain name
+    {                   
+        //tcp_all pt given ip
+        if (strcmp(argv[1], "--ip") == 0 && isValidIpAddress(argv[2])) // fix isValidIpAddress()!!! works for invalid ip addresses like 32.3
         {
             // initSock()
             struct in_addr address; //
@@ -35,8 +47,8 @@ int main(int argc, char *argv[])
                 exit(1);
             }
 
-            // reverse dns func()
-            inet_aton(argv[1], &address);
+            // todo: reverse dns func()
+            inet_aton(argv[2], &address);
             server = gethostbyaddr(&address, sizeof(address), AF_INET);
 
             if (server == NULL)
@@ -75,19 +87,13 @@ int main(int argc, char *argv[])
 
             close(sockfd);
         }
+        else if (strcmp(argv[1], "--file") == 0)
+        {
+            //todo...
+        }
         else
         {
-            if (strcmp(argv[1], "--help") == 0)
-            {
-                system("clear");
-                myprint("_man.txt");
-            }
-            else
-            {
-                //todo: check for wrong argument -> implement func() and text file with format: 
-                //Usage: pscan [Option/IP] {Port} {IP}...
-                //Try 'pscan --help' for more information.
-            }
+            wrongCall();
         }
     }
     else if (argc == 4) // argv[2] = port si argv[3] = ip

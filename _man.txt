@@ -4,7 +4,7 @@ NAME
        pscan - Network exploration tool and security / port scanner
 
 SYNOPSIS
-       pscan [Option] {Port} {IP}
+       pscan [Option] {Port/IP} {IP}
 
 DESCRIPTION
        todo...

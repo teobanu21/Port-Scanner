@@ -3,15 +3,15 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/socket.h>     //pt sockets
+#include <sys/socket.h> //pt sockets
 #include <arpa/inet.h>
-#include "netdb.h"          //defines the hostent structure, aici folosit pentru DNS
+#include "netdb.h" //defines the hostent structure, aici folosit pentru DNS
 #include "pthread.h"
 
 #define NUMTHREADS 5
 #define NUMPORTS 54
 
-//pt functia ./main [IP address] ->scaneaza toate porturile entitatii targetate
+// pt functia ./main [IP address] ->scaneaza toate porturile entitatii targetate
 struct ThreadData
 {
     int start, stop;
@@ -19,19 +19,28 @@ struct ThreadData
     int sockfd;
 };
 
-//initSock() todo...
+// initSock() todo...
 
+void wrongCall()
+{
+    printf("Usage: nscan [Option/IP] {Port} {IP}...\nTry 'nscan --help' for more information.\n");
+    exit(1);
+}
 
-//verifica daca format-ul adresei IP este corect
+// verifica daca format-ul adresei IP este corect
 int isValidIpAddress(char *ipAddress)
 {
-    //also check for number of '.' to be sure they are 4, then run the following code lines
+    // also check for number of '.' to be sure they are 4, then run the following code lines
     struct sockaddr_in sa;
-    int result = inet_pton(AF_INET, ipAddress, &(sa.sin_addr));
+    int result = inet_pton(AF_INET, ipAddress, &(sa.sin_addr)); //inet_pton - convert IPv4 and IPv6 addresses from text to binary form
+                                                                // returns 1 on success (network address was successfully converted).  
+                                                                // 0 is returned if src does not contain a character string representing a valid network address in the specified address family.  
+                                                                // If af does not contain a valid address family, -1 is returned and errno is set to EAFNOSUPPORT.
+
     return result != 0;
 }
 
-//printeaza fisiere dupa caz
+// printeaza fisiere dupa caz
 void myprint(const char *filename)
 {
     FILE *infile;
@@ -62,10 +71,9 @@ void myprint(const char *filename)
     printf("\n");
 }
 
-//todo: ip to domain_name func() more precisely a rev dns func 
+// todo: ip to domain_name func() more precisely a rev dns func
 
-
-//domain name to ip func -> dns functionality
+// domain name to ip func -> dns functionality
 char *dns_lookup(const char *addr_host, int PORT_NO)
 {
     struct hostent *host_entity;
@@ -92,7 +100,7 @@ void iterate_ports(struct ThreadData *td)
     int stop = data->stop;
     struct hostent *server = data->server;
     int i;
-    
+
     printf("%d %d\n", start, stop);
 
     for (i = start; i < stop; i++)

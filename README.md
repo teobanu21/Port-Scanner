@@ -18,6 +18,7 @@ Mai multe detalii in ceea ce priveste utilizarea aplicatiei noastre mai jos:
 ```bash
 --help <display invocation options>
 --port <port to scan>
+--ip <IP address to scan>
 --file <file name containing IP addresses to scan>
 --transport <TCP or UDP>
 --ping <optiunea de a verfica daca host is alive before scanning>
@@ -72,7 +73,7 @@ Optiuni functionale:
 ./nscan --help
 ```
 ```bash
-./nscan 8.8.8.8 #or any other IP address
+./nscan --ip 8.8.8.8 #or any other IP address
 ```
 ```bash
 ./nscan --port 53 8.8.8.8 #or any other port or IP address
