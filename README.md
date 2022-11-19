@@ -1,4 +1,4 @@
-# Proiect PSO -> implementare aplicatie de tip port-scanner 
+# Proiect PSO -> aplicatie de tip port-scanner 
 _Echipa: Banu Teodora & Prelipcean Marius_<br/> 
 _Grupa: C113D_
 
@@ -10,11 +10,11 @@ Putem spune ca ele au fost create pentru a asigura trafic preferential diferitor
 Din schema de mai sus putem intelege ca serviciile, in functie de task-ul pe care trebuie sa-l indeplineasca, sunt dependente de un anumit tip de protocol pentru asigurarea conexiunii (TCP folosit, de exemplu, pentru o aplicatie de email si UDP folosit pentru o aplicatie de live streaming). Pe baza acestui fapt putem imparti porturile in [doua categorii](https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers).
 
 ## Cum va functiona aplicatia noastra?
-Aplicatia va rula pe masinilie cu OS Linux. Aceasta va fi porni cu comanda:
+Aplicatia va rula pe masinilie cu OS Linux.
 ```bash
-./portScanner [option1, ..., optionN]
+./nscan [option1, ..., optionN]
 ```
-De asemenea planuim sa implementam urmatoarele optiuni:
+Mai multe detalii in ceea ce priveste utilizarea aplicatiei noastre mai jos:
 ```bash
 --help <display invocation options>
 --ports <ports to scan>
