@@ -83,3 +83,4 @@ Optiuni functionale:
 ```
 
 #### todo:
+De rezolvat comentariile din cod...
