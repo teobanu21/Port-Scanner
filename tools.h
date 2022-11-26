@@ -19,7 +19,27 @@ struct ThreadData
     int sockfd;
 };
 
-// initSock() todo...
+// initSock()
+int initSocket()
+{
+    int sockfd; // socket descriptor
+
+    sockfd = socket(AF_INET, SOCK_STREAM, 0); //  //creare socket
+                                              // domain: Specifies the communications domain in which a socket is to be created
+                                              //->AF_INET: address family that is used to designate the type of addresses that your socket can communicate with (in this case, Internet Protocol v4 addresses)
+    // type: Specifies the type of socket to be created.
+    //-> SOCK_STREAM: Provides sequenced, reliable, bidirectional, connection-mode byte streams, and may provide a transmission mechanism for out-of-band data.
+    // protocol: Specifies a particular protocol to be used with the socket
+    //->Specifying a protocol of 0 causes socket() to use an unspecified default protocol appropriate for the requested socket type.
+
+    if (sockfd < 0)
+    {
+        printf("ERROR opening socket");
+        exit(1);
+    }
+
+    return sockfd;
+}
 
 void wrongCall()
 {
@@ -32,12 +52,24 @@ int isValidIpAddress(char *ipAddress)
 {
     // also check for number of '.' to be sure they are 4, then run the following code lines
     struct sockaddr_in sa;
-    int result = inet_pton(AF_INET, ipAddress, &(sa.sin_addr)); //inet_pton - convert IPv4 and IPv6 addresses from text to binary form
-                                                                // returns 1 on success (network address was successfully converted).  
-                                                                // 0 is returned if src does not contain a character string representing a valid network address in the specified address family.  
-                                                                // If af does not contain a valid address family, -1 is returned and errno is set to EAFNOSUPPORT.
+    int result = inet_pton(AF_INET, ipAddress, &(sa.sin_addr)); // inet_pton - convert IPv4 and IPv6 addresses from text to binary form
+                                                                //  returns 1 on success (network address was successfully converted).
+                                                                //  0 is returned if src does not contain a character string representing a valid network address in the specified address family.
+                                                                //  If af does not contain a valid address family, -1 is returned and errno is set to EAFNOSUPPORT.
 
     return result != 0;
+}
+
+void verifyConnection(int sockfd, struct sockaddr_in serv_addr, int port_no)
+{
+    if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
+    {
+        printf("Port %d is closed\n", port_no);
+    }
+    else
+    {
+        printf("Port %d is active\n", port_no);
+    }
 }
 
 // printeaza fisiere dupa caz
@@ -71,10 +103,40 @@ void myprint(const char *filename)
     printf("\n");
 }
 
-// todo: ip to domain_name func() more precisely a rev dns func
+// todo: ip to domain_name func() for initializing struct hostent *server
+struct hostent *rev_dns_convert(struct in_addr address)
+{
 
-// domain name to ip func -> dns functionality
-char *dns_lookup(const char *addr_host, int PORT_NO)
+    struct hostent *server;
+
+    server = gethostbyaddr(&address, sizeof(address), AF_INET);
+    if (server == NULL)
+    {
+        fprintf(stderr, "ERROR, no such host\n");
+        exit(0);
+    }
+
+    printf("%s\n", server->h_name);
+
+    return server;
+}
+
+// domain_name to ip for initializing struct hostent *server
+struct hostent *dns_convert(const char *address)
+{
+    struct hostent *server;
+    server = gethostbyname(address);
+    if (server == NULL)
+    {
+        fprintf(stderr, "ERROR, no such host\n");
+        exit(1);
+    }
+
+    return server;
+}
+
+// domain name to ip func for printing an ip address given a domain name -> used in printing ip in tcp_connect_dns
+void dns_lookup(const char *addr_host)
 {
     struct hostent *host_entity;
     char *ip = (char *)malloc(NI_MAXHOST * sizeof(char));
@@ -88,7 +150,8 @@ char *dns_lookup(const char *addr_host, int PORT_NO)
     // filling up address structure
     strcpy(ip, inet_ntoa(*(struct in_addr *)host_entity->h_addr));
 
-    return ip;
+    printf("IP: %s\n", ip);
+
 }
 
 // tcp multithread rev dns helper function

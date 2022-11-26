@@ -30,34 +30,24 @@ int main(int argc, char *argv[])
         }
     }
     else if (argc == 3) // to do scan all ports for given domain name
-    {                   
-        //tcp_all pt given ip
-        if (strcmp(argv[1], "--ip") == 0 && isValidIpAddress(argv[2])) // fix isValidIpAddress()!!! works for invalid ip addresses like 32.3
+    {
+        // tcp_all pt given ip
+        if (strcmp(argv[1], "--scan") == 0) // fix isValidIpAddress()!!! works for invalid ip addresses like 32.3
         {
-            // initSock()
-            struct in_addr address; //
-            int sockfd;             // socket descriptor
+            struct in_addr address;
+            int sockfd = initSocket();
             struct hostent *server;
 
-            sockfd = socket(AF_INET, SOCK_STREAM, 0); // creare socket
-
-            if (sockfd < 0)
+            if (isValidIpAddress(argv[2]))
             {
-                printf("ERROR opening socket");
-                exit(1);
+                inet_aton(argv[2], &address);
+                server = rev_dns_convert(address);
             }
-
-            // todo: reverse dns func()
-            inet_aton(argv[2], &address);
-            server = gethostbyaddr(&address, sizeof(address), AF_INET);
-
-            if (server == NULL)
+            else
             {
-                fprintf(stderr, "ERROR, no such host\n");
-                exit(0);
+                dns_lookup(argv[2]);
+                server = dns_convert(argv[2]);
             }
-
-            printf("%s\n", server->h_name);
 
             // this stays for now
             int tasksPerThread = (NUMPORTS + NUMTHREADS - 1) / NUMTHREADS;
@@ -89,14 +79,17 @@ int main(int argc, char *argv[])
         }
         else if (strcmp(argv[1], "--file") == 0)
         {
-            //todo...
+            // todo...
+        }
+        else if (strcmp(argv[1], "--ping") == 0 && isValidIpAddress(argv[2]))
+        {
+            //todo ping
         }
         else
         {
             wrongCall();
         }
-    }
-    else if (argc == 4) // argv[2] = port si argv[3] = ip
+    }else if (argc == 4) // argv[2] = port si argv[3] = ip
     {
         if (strcmp(argv[1], "--port") == 0)
         {
@@ -111,5 +104,6 @@ int main(int argc, char *argv[])
             }
         }
     }
+
     return 0;
 }
