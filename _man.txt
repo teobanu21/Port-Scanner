@@ -1,10 +1,10 @@
 PSCAN(1)                     pscan Reference Guide                     PSCAN(1)
 
 NAME
-       pscan - Network exploration tool and security / port scanner
+       nscan - Network exploration tool and security / port scanner
 
 SYNOPSIS
-       pscan [Option] {Port/IP} {IP}
+       nscan [Option] {Port/IP} {IP}
 
 DESCRIPTION
        todo...
