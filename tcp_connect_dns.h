@@ -5,11 +5,9 @@ void tcp_connect_dns(const char *addr, int port_no)
 {
     struct in_addr address;       //
     struct sockaddr_in serv_addr; // structura care contine port + ip pt stabilirea conexiunii
-
-    int sockfd = initSocket();
-
     struct hostent *server = dns_convert(addr);
 
+    int sockfd = initSocket();
     dns_lookup(addr);
 
     // initializarea structurii cu ajutorul careia verificam conexiunea -> todo: checkConnection func in tools.h

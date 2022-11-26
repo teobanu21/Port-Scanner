@@ -46,6 +46,7 @@ Mediu de dezvoltare:
 ## Surse
 #### socket()
 * https://linux.die.net/man/3/socket
+* 
 
 #### struct sockaddr_in, struct in_addr
 * https://www.gta.ufrj.br/ensino/eel878/sockets/sockaddr_inman.html
@@ -81,6 +82,18 @@ Optiuni functionale:
 ```bash
 ./nscan --port 53 dns.google #or any other port or domain name
 ```
+```bash
+./nscan --file example.txt #or any other file
+```
+```bash
+./nscan --ping 8.8.4.4 #or any other IP
+```
+```bash
+./nscan --ping dns.google #or any other domain name
+```
 
 #### todo:
-De rezolvat comentariile din cod...
+* Improve multithread part
+* Add supported file extentions for ```--file``` option
+* Make connect non blocking for tcp_all func
+* Resolve todo's...
