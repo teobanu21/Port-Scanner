@@ -46,6 +46,7 @@ Mediu de dezvoltare:
 ## Surse
 #### socket()
 * https://linux.die.net/man/3/socket
+* https://stackoverflow.com/questions/64256922/in-socket-programming-using-c-language-how-to-set-time-limit-on-server-for-acce
 * 
 
 #### struct sockaddr_in, struct in_addr
