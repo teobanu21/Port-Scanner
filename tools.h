@@ -14,6 +14,7 @@
 #include <fcntl.h>
 #include <signal.h>
 
+//pentru tcp_all
 #define NUMTHREADS 5
 #define NUMPORTS 54
 
@@ -54,7 +55,7 @@ void wrongCall()
 }
 
 // verifica daca format-ul adresei IP este corect
-int isValidIpAddress(char *ipAddress)
+int isValidIpAddress(const char *ipAddress)
 {
     // also check for number of '.' to be sure they are 4, then run the following code lines
     struct sockaddr_in sa;
@@ -150,7 +151,8 @@ void dns_lookup(const char *addr_host)
 
     if ((host_entity = gethostbyname(addr_host)) == NULL)
     {
-        return NULL;
+        printf("no such host\n");
+        exit(1);
     }
 
     // filling up address structure
