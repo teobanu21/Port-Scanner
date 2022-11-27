@@ -18,7 +18,7 @@ make clean
 ```bash
 make nscan
 ```
-Pentru a rula executabilul, rulati:
+Pentru a rula executabilul, utilizati:
 ```bash
 ./nscan [option1, ..., optionN]
 ```
@@ -34,6 +34,7 @@ Mai multe detalii in ceea ce priveste utilizarea aplicatiei noastre mai jos:
 * **port**: by default, port scanner-ul va scana porturile [0-1024], dar prin intermediul acestei comenzi va scana doar porturile specificate in command line
 * **scan**/**file**: aceste optiuni dau posibilitatea user-ului sa scaneze un IP anume sau o lista de IP-uri dintr-un fisier
 * **ping**: verifica daca host is alive
+    * **se ruleaza cu sudo!!!**
 
 Pentru a regasi aceste indrumari si in terminal se va utiliza una dintre urmatoarele comenzi:
 ```bash
@@ -93,10 +94,10 @@ Optiuni functionale:
 ./nscan --file example.txt #or any other file
 ```
 ```bash
-./nscan --ping 8.8.4.4 #or any other IP
+sudo ./nscan --ping 8.8.4.4 #or any other IP
 ```
 ```bash
-./nscan --ping dns.google #or any other domain name
+sudo ./nscan --ping dns.google #or any other domain name
 ```
 
 #### todo:
