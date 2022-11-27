@@ -11,6 +11,14 @@ Din schema de mai sus putem intelege ca serviciile, in functie de task-ul pe car
 
 ## Cum va functiona aplicatia noastra?
 Aplicatia va rula pe masinilie cu OS Linux.
+Pentru a crea executabilul, rulati urmatoarele instructiuni:
+```bash 
+make clean
+```
+```bash
+make nscan
+```
+Pentru a rula executabilul, rulati:
 ```bash
 ./nscan [option1, ..., optionN]
 ```
@@ -18,15 +26,13 @@ Mai multe detalii in ceea ce priveste utilizarea aplicatiei noastre mai jos:
 ```bash
 --help <display invocation options>
 --port <port to scan>
---ip <IP address to scan>
+--scan <IP address to scan>
 --file <file name containing IP addresses to scan>
---transport <TCP or UDP>
---ping <optiunea de a verfica daca host is alive before scanning>
+--ping <check if host is alive before scanning>
 ```
 * **help**: afiseaza optiunile disponibile user-ului
-* **ports**: by default, port scanner-ul va scana porturile [0-1024], dar prin intermediul acestei comenzi va scana doar porturile specificate in command line
-* **ip**/**file**: aceste optiuni dau posibilitatea user-ului sa scaneze un IP anume sau o lista de IP-uri dintr-un fisier
-* **transport**: by default, aplicatia va scana toate porturile TCP si UDP, insa ofera optiunea user-ului sa scaneze fie porturile TCP fie cele UDP
+* **port**: by default, port scanner-ul va scana porturile [0-1024], dar prin intermediul acestei comenzi va scana doar porturile specificate in command line
+* **scan**/**file**: aceste optiuni dau posibilitatea user-ului sa scaneze un IP anume sau o lista de IP-uri dintr-un fisier
 * **ping**: verifica daca host is alive
 
 Pentru a regasi aceste indrumari si in terminal se va utiliza una dintre urmatoarele comenzi:
@@ -66,7 +72,7 @@ Mediu de dezvoltare:
 
 
 ## Progres
-#### 19/11/2022
+#### 27/11/2022
 Optiuni functionale: 
 ```bash
 ./nscan

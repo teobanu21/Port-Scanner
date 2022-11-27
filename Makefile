@@ -1,5 +1,5 @@
-main: main.c 
-	gcc main.c -o main
+nscan: main.c 
+	gcc main.c -o nscan
 
 clean:
-	rm -f *.o *~ main 
+	rm -f *.o *~ main *~ nscan 
