@@ -4,6 +4,8 @@
 #include "tools.h"
 #include "tcp_connect_rev_dns.h"
 #include "tcp_connect_dns.h"
+#include "tcp_all.h"
+#include "myping.h"
 
 // todo:
 // check if command is wrong for argv[1]
