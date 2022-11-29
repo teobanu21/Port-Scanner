@@ -36,11 +36,31 @@ int main(int argc, char *argv[])
         // tcp_all pt given ip
         if (strcmp(argv[1], "--scan") == 0)
         {
-            tcp_all(argv[2]);
+             if (isValidIpAddress(argv[2]))
+                {
+                    tcp_all(argv[2]);
+                }
+                else
+                {
+                    struct hostent *host_entity;
+                    char *ip = (char *)malloc(NI_MAXHOST * sizeof(char));
+                    int i;
+
+                    if ((host_entity = gethostbyname(argv[2])) == NULL)
+                    {
+                        printf("no such host\n");
+                        exit(1);
+                    }
+
+                    // filling up address structure
+                    strcpy(ip, inet_ntoa(*(struct in_addr *)host_entity->h_addr));
+                    tcp_all(ip);
+                }
+
         }
         else if (strcmp(argv[1], "--file") == 0)
         {
-            //put --file into a header
+            // put --file into a header
             FILE *f = fopen(argv[2], "r");
 
             if (f == NULL)
@@ -59,14 +79,33 @@ int main(int argc, char *argv[])
                     addr[strlen(addr) - 1] = '\0';
                 }
 
-                tcp_all(addr);
+                if (isValidIpAddress(addr))
+                {
+                    tcp_all(addr);
+                }
+                else
+                {
+                    struct hostent *host_entity;
+                    char *ip = (char *)malloc(NI_MAXHOST * sizeof(char));
+                    int i;
+
+                    if ((host_entity = gethostbyname(addr)) == NULL)
+                    {
+                        printf("no such host\n");
+                        exit(1);
+                    }
+
+                    // filling up address structure
+                    strcpy(ip, inet_ntoa(*(struct in_addr *)host_entity->h_addr));
+                    tcp_all(ip);
+                }
             }
 
             fclose(f);
         }
         else if (strcmp(argv[1], "--ping") == 0)
         {
-            //put --ping in a header file 
+            // put --ping in a header file
             int sockfd;
             char *ip_addr, *reverse_hostname;
             struct sockaddr_in addr_con;

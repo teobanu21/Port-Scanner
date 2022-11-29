@@ -2,8 +2,8 @@
 #include "tools.h"
 
 // pentru tcp_all
-#define NUMTHREADS 5
-#define NUMPORTS 54
+#define NUMTHREADS 15
+#define NUMPORTS 1024
 
 // pt functia ./main -scan [IP address] ->scaneaza toate porturile entitatii targetate
 struct ThreadData
@@ -30,7 +30,12 @@ void iterate_ports(struct ThreadData *td)
 
     for (i = start; i < stop; i++)
     {
-        printf("Connecting to %d..\n", i);
+        // printf("Connecting to %d..\n", i);
+
+        if (i == 53)
+        {
+            printf("nice\n");
+        }
 
         int port = i;
         fd_set fdset;
@@ -48,7 +53,7 @@ void iterate_ports(struct ThreadData *td)
 
         td->sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
-        if(td->sockfd < 0)
+        if (td->sockfd < 0)
         {
             exit(0);
         }
@@ -58,8 +63,8 @@ void iterate_ports(struct ThreadData *td)
 
         FD_ZERO(&fdset);
         FD_SET(td->sockfd, &fdset);
-        tv.tv_sec = 10; // 5sec timeout
-        tv.tv_usec = 0;
+        tv.tv_sec = 0; // 5sec timeout
+        tv.tv_usec = 900000;
 
         if (select(td->sockfd + 1, NULL, &fdset, NULL, &tv) == 1)
         {
@@ -108,7 +113,7 @@ void tcp_all(const char *addr_read)
     {
         data[i].start = i * tasksPerThread;
         data[i].stop = (i + 1) * tasksPerThread;
-        //data[i].sockfd = sockfd;
+        // data[i].sockfd = sockfd;
         data[i].server = server;
         data[i].address = strdup(addr_read);
     }
