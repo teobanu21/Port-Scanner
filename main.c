@@ -23,8 +23,7 @@ int main(int argc, char *argv[])
     {
         if (strcmp(argv[1], "--help") == 0)
         {
-            system("clear");
-            myprint("_man.txt");
+            system("man ./_man.1");
         }
         else
         {
