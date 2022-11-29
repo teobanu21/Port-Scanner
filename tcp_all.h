@@ -64,7 +64,7 @@ void iterate_ports(struct ThreadData *td)
         FD_ZERO(&fdset);
         FD_SET(td->sockfd, &fdset);
         tv.tv_sec = 0; // 5sec timeout
-        tv.tv_usec = 750000;
+        tv.tv_usec = 175000;
 
         if (select(td->sockfd + 1, NULL, &fdset, NULL, &tv) == 1)
         {
@@ -86,7 +86,8 @@ void iterate_ports(struct ThreadData *td)
                 {
                     char *name = strdup(serv_name->s_name);
                     // printf("getservbyport was successful, port %d service %s\n", i, name);
-                    printf("%s: \t%d is open \tservice %s\n", addr, i, name);
+                    // printf("%s: \t%d is open \tservice %s\n", addr, i, name);
+                    printf("%d\topen\t%s\n", i, name);
                 }
             }
         }
@@ -132,6 +133,8 @@ void tcp_all(const char *addr_read)
 
     data[NUMTHREADS - 1].stop = NUMPORTS;
     pthread_t thread[NUMTHREADS];
+
+    printf("PORT\tSTATE\tSERVICE\n");
 
     for (int i = 0; i < NUMTHREADS; i++)
     {

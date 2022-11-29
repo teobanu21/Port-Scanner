@@ -9,19 +9,41 @@ Treaba sta cam asa: <br/>![Port_multiplexing](http://www.comefunziona.net/img/fi
 Putem spune ca ele au fost create pentru a asigura trafic preferential diferitor servicii/aplicatii de pe un end device.<br/>
 Din schema de mai sus putem intelege ca serviciile, in functie de task-ul pe care trebuie sa-l indeplineasca, sunt dependente de un anumit tip de protocol pentru asigurarea conexiunii (TCP folosit, de exemplu, pentru o aplicatie de email si UDP folosit pentru o aplicatie de live streaming). Pe baza acestui fapt putem imparti porturile in [doua categorii](https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers).
 
-## Cum va functiona aplicatia noastra?
-Aplicatia va rula pe masinilie cu OS Linux.
+## Cum cream executabilul?
 Pentru a crea executabilul, rulati urmatoarele instructiuni:
 ```bash 
-make clean
+chmod u+x ./_install.sh
 ```
 ```bash
-make nscan
+./_install.sh
 ```
+
+## Cum stergem executabilul?
+Pentru a sterge executabilul, rulati urmatoarele instructiuni:
+```bash 
+chmod u+x ./_uninstall.sh
+```
+```bash
+./_uninstall.sh
+```
+
+## Cum updatam executabilul?
+Pentru a sterge executabilul, rulati urmatoarele instructiuni:
+```bash 
+chmod u+x ./_update.sh
+```
+```bash
+./_update.sh
+```
+
+## Cum rulam executabilul?
+Aplicatia va rula pe masinilie cu OS Linux.
 Pentru a rula executabilul, utilizati:
 ```bash
-./nscan [option1, ..., optionN]
+nscan [option1, ..., optionN]
 ```
+
+## Cum va functiona aplicatia noastra?
 Mai multe detalii in ceea ce priveste utilizarea aplicatiei noastre mai jos:
 ```bash
 --help <display invocation options>
@@ -38,11 +60,11 @@ Mai multe detalii in ceea ce priveste utilizarea aplicatiei noastre mai jos:
 
 Pentru a regasi aceste indrumari si in terminal se va utiliza una dintre urmatoarele comenzi:
 ```bash
-./nscan
+nscan
 ```
 sau
 ```bash
-./nscan --help
+nscan --help
 ```
 
 ## Ce vom utiliza?
@@ -73,35 +95,35 @@ Mediu de dezvoltare:
 
 
 ## Progres
-#### 27/11/2022
+#### 30/11/2022
 Optiuni functionale: 
 ```bash
-./nscan
+nscan
 ```
 ```bash
-./nscan --help
+nscan --help
 ```
 ```bash
-./nscan --ip 8.8.8.8 #or any other IP address
+nscan --scan 8.8.8.8 #or any other IP address
 ```
 ```bash
-./nscan --port 53 8.8.8.8 #or any other port or IP address
+nscan --port 53 8.8.8.8 #or any other port or IP address
 ```
 ```bash
-./nscan --port 53 dns.google #or any other port or domain name
+nscan --port 53 dns.google #or any other port or domain name
 ```
 ```bash
-./nscan --file example.txt #or any other file
+nscan --file example.txt #or any other file
 ```
 ```bash
-sudo ./nscan --ping 8.8.4.4 #or any other IP
+sudo nscan --ping 8.8.4.4 #or any other IP
 ```
 ```bash
-sudo ./nscan --ping dns.google #or any other domain name
+sudo nscan --ping dns.google #or any other domain name
 ```
 
 #### todo:
 * Improve multithread part
 * Add supported file extentions for ```--file``` option
-* Make connect non blocking for tcp_all func
+* Make connect non blocking for tcp_all func -> to fix: port 53 closed for 8.8.8.8???
 * Resolve todo's...

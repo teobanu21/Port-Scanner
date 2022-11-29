@@ -1,12 +1,11 @@
 #!/bin/bash
 
+make clean
 sudo rm /usr/bin/nscan 2> /dev/null
-make clean &> /dev/null
-make nscan &> /dev/null
 
+make nscan 2> /dev/null
 cale=`pwd`
 newcale="$cale/nscan"
-# echo $newcale
 sudo ln -s $newcale /usr/bin/nscan 2> /dev/null
 
 function ProgressBar {
@@ -23,17 +22,10 @@ function ProgressBar {
 _start=1
 _end=100
 
-if [[ $? -eq 0 ]]
-then
-    echo "Installing..."
-    for number in $(seq ${_start} ${_end})
-    do
-        sleep 0.05
-        ProgressBar ${number} ${_end}
-    done
-    echo -e "\nDone!"
-    exit 0
-else
-    echo "File already exists!"
-    exit 0
-fi
+for number in $(seq ${_start} ${_end})
+do
+    sleep 0.05
+    ProgressBar ${number} ${_end}
+done
+echo -e "\nDone!"
+exit 0
