@@ -26,7 +26,7 @@ void iterate_ports(struct ThreadData *td)
     char addr[17];
     strcpy(addr, td->address);
 
-    //printf("%d %d\n", start, stop);
+    // printf("%d %d\n", start, stop);
 
     for (i = start; i < stop; i++)
     {
@@ -64,7 +64,7 @@ void iterate_ports(struct ThreadData *td)
         FD_ZERO(&fdset);
         FD_SET(td->sockfd, &fdset);
         tv.tv_sec = 0; // 5sec timeout
-        tv.tv_usec = 900000;
+        tv.tv_usec = 750000;
 
         if (select(td->sockfd + 1, NULL, &fdset, NULL, &tv) == 1)
         {
@@ -75,7 +75,19 @@ void iterate_ports(struct ThreadData *td)
 
             if (so_error == 0)
             {
-                printf("%s:%d is open \n", addr, port);
+                struct servent *serv_name = getservbyport(htons(i), NULL);
+                if (serv_name == NULL)
+                {
+                    printf("%s:%d is open \n", addr, port);
+
+                    printf("unknown application \n");
+                }
+                else
+                {
+                    char *name = strdup(serv_name->s_name);
+                    // printf("getservbyport was successful, port %d service %s\n", i, name);
+                    printf("%s: \t%d is open \tservice %s\n", addr, i, name);
+                }
             }
         }
 
