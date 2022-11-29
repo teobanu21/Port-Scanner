@@ -12,7 +12,7 @@ Din schema de mai sus putem intelege ca serviciile, in functie de task-ul pe car
 ## Cum cream executabilul?
 Pentru a crea executabilul, rulati urmatoarele instructiuni:
 ```bash 
-chmod u+x ./_install.sh
+chmod u+x _install.sh
 ```
 ```bash
 ./_install.sh
@@ -21,7 +21,7 @@ chmod u+x ./_install.sh
 ## Cum stergem executabilul?
 Pentru a sterge executabilul, rulati urmatoarele instructiuni:
 ```bash 
-chmod u+x ./_uninstall.sh
+chmod u+x _uninstall.sh
 ```
 ```bash
 ./_uninstall.sh
@@ -30,7 +30,7 @@ chmod u+x ./_uninstall.sh
 ## Cum updatam executabilul?
 Pentru a sterge executabilul, rulati urmatoarele instructiuni:
 ```bash 
-chmod u+x ./_update.sh
+chmod u+x _update.sh
 ```
 ```bash
 ./_update.sh

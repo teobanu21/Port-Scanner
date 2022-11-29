@@ -1,5 +1,6 @@
 #!/bin/bash
 
+chmod u+x _man.1
 sudo rm /usr/bin/nscan 2> /dev/null
 make clean &> /dev/null
 make nscan &> /dev/null
