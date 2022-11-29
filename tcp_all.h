@@ -26,16 +26,16 @@ void iterate_ports(struct ThreadData *td)
     char addr[17];
     strcpy(addr, td->address);
 
-    printf("%d %d\n", start, stop);
+    //printf("%d %d\n", start, stop);
 
     for (i = start; i < stop; i++)
     {
         // printf("Connecting to %d..\n", i);
 
-        if (i == 53)
-        {
-            printf("nice\n");
-        }
+        // if (i == 53)
+        // {
+        //     printf("nice\n");
+        // }
 
         int port = i;
         fd_set fdset;
