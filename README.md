@@ -91,6 +91,8 @@ Mediu de dezvoltare:
 #### arpa/inet.h
 * https://pubs.opengroup.org/onlinepubs/7908799/xns/arpainet.h.html
 
+#### others
+* https://www.geeksforgeeks.org/creating-a-portscanner-in-c/
 
 
 
@@ -123,7 +125,7 @@ sudo nscan --ping dns.google #or any other domain name
 ```
 
 #### todo:
-* Improve multithread part
 * Add supported file extentions for ```--file``` option
-* Make connect non blocking for tcp_all func -> to fix: port 53 closed for 8.8.8.8???
+* Add file size limit for ```--file```
+* Fix printExecTime() function -> calculates time wrongly
 * Resolve todo's...

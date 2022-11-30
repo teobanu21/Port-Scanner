@@ -5,6 +5,7 @@
 #include "tcp_connect_rev_dns.h"
 #include "tcp_connect_dns.h"
 #include "tcp_all.h"
+#include "tcp_file.h"
 #include "myping.h"
 
 // todo:
@@ -58,47 +59,7 @@ int main(int argc, char *argv[])
         else if (strcmp(argv[1], "--file") == 0)
         {
             // put --file into a header
-            FILE *f = fopen(argv[2], "r");
-
-            if (f == NULL)
-            {
-                printf("Error opening the file\n");
-                exit(-1);
-            }
-
-            printf("Reading from: %s\n", argv[2]);
-            char addr[60];
-
-            while (fgets(addr, 60, f))
-            {
-                if (strchr(addr, '\n') != 0)
-                {
-                    addr[strlen(addr) - 1] = '\0';
-                }
-
-                if (isValidIpAddress(addr))
-                {
-                    tcp_all(addr);
-                }
-                else
-                {
-                    struct hostent *host_entity;
-                    char *ip = (char *)malloc(NI_MAXHOST * sizeof(char));
-                    int i;
-
-                    if ((host_entity = gethostbyname(addr)) == NULL)
-                    {
-                        printf("no such host\n");
-                        exit(-1);
-                    }
-
-                    // filling up address structure
-                    strcpy(ip, inet_ntoa(*(struct in_addr *)host_entity->h_addr));
-                    tcp_all(ip);
-                }
-            }
-
-            fclose(f);
+            tcp_file(argv[2]);
             printExecutionTime(start);
             exit(0);
         }
@@ -163,7 +124,8 @@ int main(int argc, char *argv[])
         {
             printf("nscan --port %d %s\n", atoi(argv[2]), argv[3]);
 
-            if(atoi(argv[2])==0){
+            if (atoi(argv[2]) == 0)
+            {
                 exit(-1);
             }
 
@@ -181,7 +143,8 @@ int main(int argc, char *argv[])
             printExecutionTime(start);
             exit(0);
         }
-        else{
+        else
+        {
             wrongCall();
             exit(-1);
         }
