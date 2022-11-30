@@ -12,6 +12,7 @@
 
 int main(int argc, char *argv[])
 {
+
     // program side
     if (argc == 1) // apel incorect al programului => mini descriere a modului in care trebuie apelat programul
     {
@@ -24,14 +25,18 @@ int main(int argc, char *argv[])
         if (strcmp(argv[1], "--help") == 0)
         {
             system("man ./_man.1");
+            exit(0);
         }
         else
         {
             wrongCall();
+            exit(-1);
         }
     }
     else if (argc == 3) // to do scan all ports for given domain name
     {
+        clock_t start = clock();
+
         // tcp_all pt given ip
         if (strcmp(argv[1], "--scan") == 0)
         {
@@ -47,6 +52,8 @@ int main(int argc, char *argv[])
                 tcp_all(ip);
             }
 
+            printExecutionTime(start);
+            exit(0);
         }
         else if (strcmp(argv[1], "--file") == 0)
         {
@@ -56,7 +63,7 @@ int main(int argc, char *argv[])
             if (f == NULL)
             {
                 printf("Error opening the file\n");
-                exit(1);
+                exit(-1);
             }
 
             printf("Reading from: %s\n", argv[2]);
@@ -82,7 +89,7 @@ int main(int argc, char *argv[])
                     if ((host_entity = gethostbyname(addr)) == NULL)
                     {
                         printf("no such host\n");
-                        exit(1);
+                        exit(-1);
                     }
 
                     // filling up address structure
@@ -92,6 +99,8 @@ int main(int argc, char *argv[])
             }
 
             fclose(f);
+            printExecutionTime(start);
+            exit(0);
         }
         else if (strcmp(argv[1], "--ping") == 0)
         {
@@ -106,7 +115,7 @@ int main(int argc, char *argv[])
             if (ip_addr == NULL)
             {
                 printf("\nDNS lookup failed! Could not resolve hostname!\n");
-                return 0;
+                exit(-1);
             }
 
             reverse_hostname = reverse_dns_lookup(ip_addr);
@@ -119,7 +128,7 @@ int main(int argc, char *argv[])
             if (sockfd < 0)
             {
                 printf("\nSocket file descriptor not received!!\n");
-                return 0;
+                exit(-1);
             }
             else
             {
@@ -135,19 +144,29 @@ int main(int argc, char *argv[])
 
             if (isReachable == 1)
             {
-                printf("\nThe destination is reachable, you can start scanning!\n\n");
+                printf("\nThe destination is reachable!\n\n");
             }
+
+            printExecutionTime(start);
+            exit(0);
         }
         else
         {
             wrongCall();
+            exit(-1);
         }
     }
     else if (argc == 4) // argv[2] = port si argv[3] = ip
     {
+        clock_t start;
         if (strcmp(argv[1], "--port") == 0)
         {
             printf("nscan --port %d %s\n", atoi(argv[2]), argv[3]);
+
+            if(atoi(argv[2])==0){
+                exit(-1);
+            }
+
             if (isValidIpAddress(argv[3]))
             {
                 // printf("ip\n");
@@ -158,6 +177,13 @@ int main(int argc, char *argv[])
                 // printf("domain");
                 tcp_connect_dns(argv[3], atoi(argv[2]));
             }
+
+            printExecutionTime(start);
+            exit(0);
+        }
+        else{
+            wrongCall();
+            exit(-1);
         }
     }
 

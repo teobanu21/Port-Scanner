@@ -55,17 +55,17 @@ int isValidIpAddress(const char *ipAddress)
     return result != 0;
 }
 
-void verifyConnection(int sockfd, struct sockaddr_in serv_addr, int port_no)
-{
-    if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
-    {
-        printf("Port %d is closed\n", port_no);
-    }
-    else
-    {
-        printf("Port %d is active\n", port_no);
-    }
-}
+// void verifyConnection(int sockfd, struct sockaddr_in serv_addr, int port_no)
+// {
+//     if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
+//     {
+//         printf("Port %d is closed\n", port_no);
+//     }
+//     else
+//     {
+//         printf("Port %d is active\n", port_no);
+//     }
+// }
 
 // printeaza fisiere dupa caz
 void myprint(const char *filename)
@@ -110,7 +110,7 @@ struct hostent *rev_dns_convert(struct in_addr address)
         exit(1);
     }
 
-    printf("%s\n", server->h_name);
+    printf("Nscan scan report for %s\n", server->h_name);
 
     return server;
 }
@@ -131,7 +131,7 @@ struct hostent *dns_convert(const char *address)
 }
 
 // domain name to ip func for printing an ip address given a domain name -> used in printing ip in tcp_connect_dns
-char* dns_lookup(const char *addr_host)
+char *dns_lookup(const char *addr_host)
 {
     struct hostent *host_entity;
     char *ip = (char *)malloc(NI_MAXHOST * sizeof(char));
@@ -162,4 +162,40 @@ void printOpenPort(int portno)
         char *name = strdup(serv_name->s_name);
         printf("%d\topen\t%s\n", portno, name);
     }
+}
+
+void connectOnPort(int portno, int sockfd, struct sockaddr_in serv_addr)
+{
+    fd_set fdset;
+    struct timeval tv;
+
+    fcntl(sockfd, F_SETFL, O_NONBLOCK);
+    connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
+
+    FD_ZERO(&fdset);
+    FD_SET(sockfd, &fdset);
+    tv.tv_sec = 0;
+    tv.tv_usec = 175000; // 0.175 sec timeout
+
+    if (select(sockfd + 1, NULL, &fdset, NULL, &tv) == 1)
+    {
+        int so_error;
+        socklen_t len = sizeof(so_error);
+
+        getsockopt(sockfd, SOL_SOCKET, SO_ERROR, &so_error, &len);
+
+        if (so_error == 0)
+        {
+            printOpenPort(portno);
+        }
+    }
+
+    close(sockfd);
+}
+
+void printExecutionTime(clock_t start)
+{
+    clock_t end = clock();
+    double exec_time = (double)(end - start) / CLOCKS_PER_SEC;
+    printf("\nNscan done! Total scanning time: %fs\n", exec_time);
 }

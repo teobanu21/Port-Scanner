@@ -33,8 +33,8 @@ void iterate_ports(struct ThreadData *td)
         // printf("Connecting to %d..\n", i);
 
         int port = i;
-        fd_set fdset;
-        struct timeval tv;
+        // fd_set fdset;
+        // struct timeval tv;
 
         struct sockaddr_in serv_addr; // structura care contine port + ip pt stabilirea conexiunii
 
@@ -62,27 +62,7 @@ void iterate_ports(struct ThreadData *td)
             }
         }
 
-        fcntl(td->sockfd, F_SETFL, O_NONBLOCK);
-        connect(td->sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
-
-        FD_ZERO(&fdset);
-        FD_SET(td->sockfd, &fdset);
-        tv.tv_sec = 0;
-        tv.tv_usec = 175000; // 0.175 sec timeout
-
-        if (select(td->sockfd + 1, NULL, &fdset, NULL, &tv) == 1)
-        {
-            int so_error;
-            socklen_t len = sizeof(so_error);
-
-            getsockopt(td->sockfd, SOL_SOCKET, SO_ERROR, &so_error, &len);
-
-            if (so_error == 0)
-            {
-                printOpenPort(port);
-            }
-        }
-        close(td->sockfd);
+        connectOnPort(port, td->sockfd, serv_addr);
     }
 }
 
@@ -112,7 +92,7 @@ void tcp_all(const char *addr_read)
     data[NUMTHREADS - 1].stop = NUMPORTS;
     pthread_t thread[NUMTHREADS];
 
-    printf("PORT\tSTATE\tSERVICE\n");
+    printf("\nPORT\tSTATE\tSERVICE\n");
 
     for (int i = 0; i < NUMTHREADS; i++)
     {
