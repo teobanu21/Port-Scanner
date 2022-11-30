@@ -35,26 +35,17 @@ int main(int argc, char *argv[])
         // tcp_all pt given ip
         if (strcmp(argv[1], "--scan") == 0)
         {
-             if (isValidIpAddress(argv[2]))
-                {
-                    tcp_all(argv[2]);
-                }
-                else
-                {
-                    struct hostent *host_entity;
-                    char *ip = (char *)malloc(NI_MAXHOST * sizeof(char));
-                    int i;
-
-                    if ((host_entity = gethostbyname(argv[2])) == NULL)
-                    {
-                        printf("no such host\n");
-                        exit(1);
-                    }
-
-                    // filling up address structure
-                    strcpy(ip, inet_ntoa(*(struct in_addr *)host_entity->h_addr));
-                    tcp_all(ip);
-                }
+            if (isValidIpAddress(argv[2]))
+            {
+                tcp_all(argv[2]);
+            }
+            else
+            {
+                // struct hostent *host_entity;
+                char *ip = (char *)malloc(NI_MAXHOST * sizeof(char));
+                ip = dns_lookup(argv[2]);
+                tcp_all(ip);
+            }
 
         }
         else if (strcmp(argv[1], "--file") == 0)
@@ -159,10 +150,12 @@ int main(int argc, char *argv[])
             printf("nscan --port %d %s\n", atoi(argv[2]), argv[3]);
             if (isValidIpAddress(argv[3]))
             {
+                // printf("ip\n");
                 tcp_connect_rev_dns(argv[3], atoi(argv[2]));
             }
             else
             {
+                // printf("domain");
                 tcp_connect_dns(argv[3], atoi(argv[2]));
             }
         }
