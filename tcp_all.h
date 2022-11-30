@@ -32,11 +32,6 @@ void iterate_ports(struct ThreadData *td)
     {
         // printf("Connecting to %d..\n", i);
 
-        // if (i == 53)
-        // {
-        //     printf("nice\n");
-        // }
-
         int port = i;
         fd_set fdset;
         struct timeval tv;
@@ -58,13 +53,22 @@ void iterate_ports(struct ThreadData *td)
             exit(0);
         }
 
+        if (i == 53)
+        {
+            if (connect(td->sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) > 0)
+            {
+                printOpenPort(port);
+                continue;
+            }
+        }
+
         fcntl(td->sockfd, F_SETFL, O_NONBLOCK);
         connect(td->sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
 
         FD_ZERO(&fdset);
         FD_SET(td->sockfd, &fdset);
-        tv.tv_sec = 0; // 5sec timeout
-        tv.tv_usec = 175000;
+        tv.tv_sec = 0;
+        tv.tv_usec = 175000; // 0.175 sec timeout
 
         if (select(td->sockfd + 1, NULL, &fdset, NULL, &tv) == 1)
         {
@@ -75,28 +79,10 @@ void iterate_ports(struct ThreadData *td)
 
             if (so_error == 0)
             {
-                struct servent *serv_name = getservbyport(htons(i), NULL);
-                if (serv_name == NULL)
-                {
-                    printf("%s:%d is open \n", addr, port);
-
-                    printf("unknown application \n");
-                }
-                else
-                {
-                    char *name = strdup(serv_name->s_name);
-                    // printf("getservbyport was successful, port %d service %s\n", i, name);
-                    // printf("%s: \t%d is open \tservice %s\n", addr, i, name);
-                    printf("%d\topen\t%s\n", i, name);
-                }
+                printOpenPort(port);
             }
         }
-
         close(td->sockfd);
-        // if (connect(data->sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) > 0)
-        // {
-        //     printf("Port %d is active\n", i);
-        // }
     }
 }
 
@@ -106,16 +92,8 @@ void tcp_all(const char *addr_read)
     struct hostent *server;
     int sockfd = initSocket();
 
-    if (isValidIpAddress(addr_read))
-    {
-        inet_aton(addr_read, &address);
-        server = rev_dns_convert(address);
-    }
-    else
-    {
-        dns_lookup(addr_read);
-        server = dns_convert(addr_read);
-    }
+    inet_aton(addr_read, &address);
+    server = rev_dns_convert(address);
 
     // this stays for now
     int tasksPerThread = (NUMPORTS + NUMTHREADS - 1) / NUMTHREADS;

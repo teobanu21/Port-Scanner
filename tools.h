@@ -131,7 +131,7 @@ struct hostent *dns_convert(const char *address)
 }
 
 // domain name to ip func for printing an ip address given a domain name -> used in printing ip in tcp_connect_dns
-void dns_lookup(const char *addr_host)
+char* dns_lookup(const char *addr_host)
 {
     struct hostent *host_entity;
     char *ip = (char *)malloc(NI_MAXHOST * sizeof(char));
@@ -145,6 +145,21 @@ void dns_lookup(const char *addr_host)
 
     // filling up address structure
     strcpy(ip, inet_ntoa(*(struct in_addr *)host_entity->h_addr));
-
     printf("IP: %s\n", ip);
+
+    return ip;
+}
+
+void printOpenPort(int portno)
+{
+    struct servent *serv_name = getservbyport(htons(portno), NULL);
+    if (serv_name == NULL)
+    {
+        printf("%d\topen\tunknown\n", portno);
+    }
+    else
+    {
+        char *name = strdup(serv_name->s_name);
+        printf("%d\topen\t%s\n", portno, name);
+    }
 }
