@@ -13,6 +13,7 @@
 #include <time.h>
 #include <fcntl.h>
 #include <signal.h>
+#include <sys/time.h>
 
 // initSock()
 int initSocket()
@@ -193,9 +194,22 @@ void connectOnPort(int portno, int sockfd, struct sockaddr_in serv_addr)
     close(sockfd);
 }
 
-void printExecutionTime(clock_t start)
+struct timeval getTime()
 {
-    clock_t end = clock();
-    double exec_time = (double)(end - start) / CLOCKS_PER_SEC;
-    printf("\nNscan done! Total scanning time: %fs\n", exec_time);
+    struct timeval time;
+    gettimeofday(&time, NULL);
+
+    return time;
+}
+
+void calculateTime(struct timeval start)
+{
+    struct timeval stop;
+    gettimeofday(&stop, NULL);
+
+    double elapsedTime =0;
+    elapsedTime = (stop.tv_sec - start.tv_sec) * 1000.0;
+    elapsedTime += (stop.tv_usec - start.tv_usec) / 1000.0;
+
+    printf("\nNscan done! Total scanning time: %fs\n", elapsedTime / 1000.0);
 }

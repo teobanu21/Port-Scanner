@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
 {
 
     // program side
+    struct timeval start = getTime();
     if (argc == 1) // apel incorect al programului => mini descriere a modului in care trebuie apelat programul
     {
         myprint("_ascii_art.txt");
@@ -36,8 +37,6 @@ int main(int argc, char *argv[])
     }
     else if (argc == 3) // to do scan all ports for given domain name
     {
-        clock_t start = clock();
-
         // tcp_all pt given ip
         if (strcmp(argv[1], "--scan") == 0)
         {
@@ -53,19 +52,18 @@ int main(int argc, char *argv[])
                 tcp_all(ip);
             }
 
-            printExecutionTime(start);
+            //printExecutionTime(start);
+            calculateTime(start);
             exit(0);
         }
         else if (strcmp(argv[1], "--file") == 0)
         {
-            // put --file into a header
             tcp_file(argv[2]);
-            printExecutionTime(start);
+            calculateTime(start);
             exit(0);
         }
         else if (strcmp(argv[1], "--ping") == 0)
         {
-            // put --ping in a header file
             int sockfd;
             char *ip_addr, *reverse_hostname;
             struct sockaddr_in addr_con;
@@ -108,7 +106,8 @@ int main(int argc, char *argv[])
                 printf("\nThe destination is reachable!\n\n");
             }
 
-            printExecutionTime(start);
+            //printExecutionTime(start);
+            calculateTime(start);
             exit(0);
         }
         else
@@ -119,7 +118,6 @@ int main(int argc, char *argv[])
     }
     else if (argc == 4) // argv[2] = port si argv[3] = ip
     {
-        clock_t start;
         if (strcmp(argv[1], "--port") == 0)
         {
             printf("nscan --port %d %s\n", atoi(argv[2]), argv[3]);
@@ -140,7 +138,8 @@ int main(int argc, char *argv[])
                 tcp_connect_dns(argv[3], atoi(argv[2]));
             }
 
-            printExecutionTime(start);
+            //printExecutionTime(start);
+            calculateTime(start);
             exit(0);
         }
         else

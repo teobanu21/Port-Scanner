@@ -127,5 +127,3 @@ sudo nscan --ping dns.google #or any other domain name
 #### todo:
 * Add supported file extentions for ```--file``` option
 * Add file size limit for ```--file```
-* Fix printExecTime() function -> calculates time wrongly
-* Resolve todo's...
