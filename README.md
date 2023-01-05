@@ -4,9 +4,9 @@ _Grupa: C113D_
 
 ## Introducere
 Port scanning-ul reprezinta actiunea prin care se poate determina ce porturi sunt deschise intr-o retea. Exista mai multe metode prin care se poate realiza acest lucru, fiecare avand avantaje si, bineinteles, dezavantaje
-* TCP PORT SCANNING
+* TCP PORT SCANNING</br>
 ![tcp_scan](https://cdn.ttgtmedia.com/rms/onlineImages/networking-tcp_port_scanning.png)
-* SYN PORT SCANNING
+* SYN PORT SCANNING</br>
 ![syn_scan](https://media.geeksforgeeks.org/wp-content/uploads/20220715123349/synscanning1.png)
 Porturile reprezinta puncte de legatura virtuale intre device-uri. Ele au rolul de a multiplexa o conexiune, adica mai multe schimburi de date pot avea loc simultan.
 Treaba sta cam asa: <br/>![Port_multiplexing](http://www.comefunziona.net/img/fig4.jpg)<br/>
