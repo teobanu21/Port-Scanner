@@ -58,7 +58,7 @@ Mai multe detalii in ceea ce priveste utilizarea aplicatiei noastre mai jos:
 --port <port to scan>
 --scan <IP address to scan>
 --file <file name containing IP addresses to scan>
---syn  <execute a [syn](https://www.geeksforgeeks.org/what-is-syn-scanning/) scan>
+--syn  <execute a syn scan>
 --ping <check if host is alive before scanning>
 ```
 * **help**: afiseaza optiunile disponibile user-ului
