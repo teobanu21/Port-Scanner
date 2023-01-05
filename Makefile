@@ -1,5 +1,5 @@
 nscan: main.c 
-	gcc main.c -o nscan
+	gcc main.c -o nscan -lpthread -lm -lresolv
 
 clean:
-	rm -f *.o *~ main *~ nscan 
+	rm -f *.o *~ main *~ nscan

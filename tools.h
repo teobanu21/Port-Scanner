@@ -1,19 +1,33 @@
 #pragma once
+#include <arpa/inet.h>
+#include <ctype.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <inttypes.h>
+#include <limits.h>
+#include <math.h>
+
+#include <netdb.h> //defines the hostent structure, aici folosit pentru DNS
+
+#include <netinet/in.h>
+#include <netinet/ip.h>
+#include <netinet/ip_icmp.h>
+#include <netinet/tcp.h>
+
+#include <pthread.h>
+
 #include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/socket.h> //pt sockets
-#include <arpa/inet.h>
-#include "netdb.h" //defines the hostent structure, aici folosit pentru DNS
-#include "pthread.h"
-#include <sys/types.h>
-#include <netinet/in.h>
-#include <netinet/ip_icmp.h>
-#include <time.h>
-#include <fcntl.h>
+#include <stdarg.h>
 #include <signal.h>
-#include <sys/time.h>
+
+#include <sys/types.h>
+#include <sys/socket.h> //pt sockets
+
+#include <time.h>
+
+#include <unistd.h>
 
 // initSock()
 int initSocket()
@@ -194,22 +208,22 @@ void connectOnPort(int portno, int sockfd, struct sockaddr_in serv_addr)
     close(sockfd);
 }
 
-struct timeval getTime()
+void printExecutionTime(struct timespec start_time)
 {
-    struct timeval time;
-    gettimeofday(&time, NULL);
+    double program_duration;
+    struct timespec finish_time;
 
-    return time;
-}
+    // clock_t end = clock();
+    // double exec_time = (double)(end - start) / CLOCKS_PER_SEC;
+    // printf("\nNscan done! Total scanning time: %fs\n", exec_time);
 
-void calculateTime(struct timeval start)
-{
-    struct timeval stop;
-    gettimeofday(&stop, NULL);
+    clock_gettime(CLOCK_MONOTONIC, &finish_time);
+    program_duration = (finish_time.tv_sec - start_time.tv_sec);
+    program_duration += (finish_time.tv_nsec - start_time.tv_nsec) / 1000000000.0;
 
-    double elapsedTime =0;
-    elapsedTime = (stop.tv_sec - start.tv_sec) * 1000.0;
-    elapsedTime += (stop.tv_usec - start.tv_usec) / 1000.0;
+    int hours_duration = program_duration / 3600;
+    int mins_duration = (int)(program_duration / 60) % 60;
+    double secs_duration = fmod(program_duration, 60);
 
-    printf("\nNscan done! Total scanning time: %fs\n", elapsedTime / 1000.0);
+    printf("Scan duration    : %d hour(s) %d min(s) %.05lf sec(s)\n", hours_duration, mins_duration, secs_duration);
 }
